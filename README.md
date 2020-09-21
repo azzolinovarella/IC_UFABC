@@ -1,0 +1,1 @@
+Esse projeto tem como objetivo armazenar os programas utilizados na Iniciação Científica de Felipe Azzolino Varella na área de análise numérica aplicada a manipuladores robóticos.
