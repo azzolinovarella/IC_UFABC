@@ -65,4 +65,4 @@ def ex2_6(plot=False) -> pd.DataFrame:
     return da
 
 
-print(ex2_6(True))
+print(ex2_6(plot=True))
