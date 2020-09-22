@@ -1,1 +1,5 @@
-Esse projeto tem como objetivo armazenar os programas utilizados na Iniciação Científica de Felipe Azzolino Varella na área de análise numérica aplicada a manipuladores robóticos.
+Esse projeto é referente a Iniciação Científica na área
+de análise numérica aplicada a manipuladores robóticos
+feita pelo aluno Felipe Azzolino Varella e 
+orientado pelo professor da UFABC Dr. Wallace Gusmão
+Ferreira
