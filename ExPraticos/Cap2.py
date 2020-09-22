@@ -37,11 +37,11 @@ def ex2_6(plot=False) -> pd.DataFrame:
     Rpa = 150  # ||BP|| in our example
     alfa = - pi/4  # CBP in our example
 
-    theta2 = pd.Series(np.linspace(0, pi, 10))
+    theta2 = pd.Series(np.linspace(0, pi, 19))
     S = theta2.apply(lambda t2: np.sqrt(r1 ** 2 + r2 ** 2 - 2 * r1 * r2 * cos(t2)))
     beta = S.apply(lambda s: acos((r1 ** 2 + s ** 2 - r2 ** 2) / (2 * r1 * s)))
     psi = S.apply(lambda s: acos((r3 ** 2 + s ** 2 - r4 ** 2) / (2 * r3 * s)))
-    theta3 = - beta + psi  # MAKING A TEST, FIX THIS LATTER!
+    theta3 = - beta + psi  # If theta 2 is between 0 and pi --> Our case!
     Rp = pd.Series([np.sqrt(Ra ** 2 + Rpa ** 2 + 2 * Ra * Rpa * cos(t3 + alfa - t2)) for t3, t2 in zip(theta3, theta2)])
     theta6 = pd.Series([atan((Ra*sin(t2) + Rpa*sin(t3 + alfa))/(Ra*cos(t2) + Rpa*cos(t3 + alfa))) for t3, t2 in zip(theta3, theta2)])
     Rpx = pd.Series([R*cos(t6) for R, t6 in zip(Rp, theta6)])
@@ -52,7 +52,7 @@ def ex2_6(plot=False) -> pd.DataFrame:
                                  "Rp (mm)": Rp.round(1),
                                  "theta6 (deg)": theta6.apply(lambda angle: angle*180/pi).round(1),
                                  "Rpx (mm)": Rpx.round(1),
-                                 "Rpy (mm)": Rpy.round(1)})
+                                 "Rpy (mm)": Rpy.round(1)}).set_index(['theta2 (deg)'])
 
     if plot is True:
         plt.figure(1)
