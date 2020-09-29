@@ -1,8 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from math import pi
-from numpy import sin, cos, arccos, arctan, sqrt
+from numpy import sin, cos, arccos, arctan, sqrt, pi
 
 pd.set_option("display.max_columns", 15)
 
@@ -11,7 +10,7 @@ def ex_res_2_6(plot=False):
     """
     Exercise:
 
-    EXAMPLE 2.6
+    EXAMPLE 2.6 - Page 87
     Consider the crank-rocker four-bar linkage shown in Fig. 2.25 (pag. 88) with RBA = 100 mm, RCB =
     250 mm, RCD = 300 mm, and RDA = 200 mm. The paths of coupler pins B and C are
     shown by the circle and the circular arc, respectively. The location of coupler point P is
@@ -72,6 +71,26 @@ def ex_res_2_6(plot=False):
 
 
 def ex_prop_2_23(r1, r2, r3, r4, coord1, coord2, coord_type='rectangular', unit='mm'):
+    """
+    Exercise:
+
+    EXERCISE 2.23 - Page 101
+    Write a computer program to plot the coupler
+    curve of any crank-rocker or double-crank form of
+    the four-bar linkage. The program should accept
+    four link lengths and either rectangular or polar
+    coordinates of the coupler point with respect to
+    the coupler.
+    :param r1: Lenght of the link1.
+    :param r2: Lenght of the link2.
+    :param r3: Lenght of the link3.
+    :param r4: Lenght of the link3.
+    :param coord1: First coordinate of the point P (x or R).
+    :param coord2: Second coordinate of the point P (y or theta).
+    :param coord_type: Coordinate type (can be rectangular or polar).
+    :param unit: The unit used to measure the lenght of the links.
+    :return: A DataFrame and the curve made by the point P.
+    """
     if coord_type not in ('rectangular', 'polar'):
         raise ValueError("Only rectangular and polar types accepted.")
 
@@ -124,6 +143,7 @@ def ex_prop_2_23(r1, r2, r3, r4, coord1, coord2, coord_type='rectangular', unit=
 
     df = pd.DataFrame.from_dict({"theta2 (deg)": (theta2 * 180 / pi).round(1),
                                  "theta3 (deg)": (theta3 * 180 / pi).round(1),
+                                 "theta4 (deg)": (theta4 * 180 / pi).round(1),
                                  "Px (mm)": Px.round(1),
                                  "Rpy (mm)": Py.round(1)}).set_index(['theta2 (deg)'])
 
@@ -132,5 +152,5 @@ def ex_prop_2_23(r1, r2, r3, r4, coord1, coord2, coord_type='rectangular', unit=
 
 if __name__ == '__main__':
     print(ex_res_2_6(plot=True))
-    print(ex_prop_2_23(r1=200, r2=100, r3=250, r4=300, coord1=150, coord2=200, coord_type='rectangular'))
+    print(ex_prop_2_23(r1=260, r2=130, r3=250, r4=300, coord1=150, coord2=200, coord_type='rectangular'))
 
