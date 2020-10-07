@@ -2,11 +2,12 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from numpy import sin, cos, arccos, arctan, sqrt, pi
+from celluloid import Camera
 
 pd.set_option("display.max_columns", 15)
 
 
-def ex_res_2_6(plot=False):
+def ex_res_2_6(plot=False, animation=False):
     """
     Exercise:
 
@@ -57,7 +58,7 @@ def ex_res_2_6(plot=False):
                                  "Rpy (mm)": Rpy.round(1)}).set_index(['theta2 (deg)'])
 
     if plot is True:
-        plt.figure(1)
+        plt.figure()
         plt.plot(Rpx, Rpy)
         plt.title("Curve made by the point P")
         plt.xlabel("x (mm)")
@@ -67,10 +68,27 @@ def ex_res_2_6(plot=False):
         plt.grid()
         plt.show()
 
+    if animation is True:
+        fig2, ax = plt.subplots()
+        camera = Camera(fig2)
+        plt.title("Curve made by the point P")
+        plt.xlabel(f"x (mm)")
+        plt.ylabel(f"y (mm)")
+        plt.grid()
+        for cont in range(0, len(Rpx)):
+            plt.plot(Rpx, Rpy, color='grey')
+            Px_i = Rpx[:cont]
+            Py_i = Rpy[:cont]
+            plt.plot(Px_i, Py_i, color='blue')
+            ax.text(min(Rpx), max(Rpy), f"theta2 = {int(theta2[cont] * 180 / pi)}°")
+            camera.snap()
+        animation = camera.animate()
+        animation.save('..\\gifs\\ex_res_2_6.gif', fps=20)
+
     return df
 
 
-def ex_prop_2_23(r1, r2, r3, r4, coord1, coord2, coord_type='rectangular', unit='mm'):
+def ex_prop_2_23(r1, r2, r3, r4, coord1, coord2, coord_type='rectangular', unit='mm', animation=False):
     """
     Exercise:
 
@@ -89,6 +107,7 @@ def ex_prop_2_23(r1, r2, r3, r4, coord1, coord2, coord_type='rectangular', unit=
     :param coord2: Second coordinate of the point P (y or theta).
     :param coord_type: Coordinate type (can be rectangular or polar).
     :param unit: The unit used to measure the lenght of the links.
+    :param animation: If you wanna generate a gif related to the curve, use it as True
     :return: A DataFrame and the curve made by the point P.
     """
     if coord_type not in ('rectangular', 'polar'):
@@ -133,13 +152,30 @@ def ex_prop_2_23(r1, r2, r3, r4, coord1, coord2, coord_type='rectangular', unit=
     Py = r2 * sin(theta2) + AP * sin(theta3 + alfa)
     P = np.array([Px, Py])
 
-    plt.figure(1)
+    plt.figure()
     plt.plot(Px, Py)
     plt.title("Curve made by the point P")
     plt.xlabel(f"x ({unit})")
     plt.ylabel(f"y ({unit})")
     plt.grid()
     plt.show()
+
+    if animation is True:
+        fig2, ax = plt.subplots()
+        camera = Camera(fig2)
+        plt.title("Curve made by the point P")
+        plt.xlabel(f"x ({unit})")
+        plt.ylabel(f"y ({unit})")
+        plt.grid()
+        for cont in range(0, len(Px)):
+            plt.plot(Px, Py, color='grey')
+            Px_i = Px[:cont]
+            Py_i = Py[:cont]
+            plt.plot(Px_i, Py_i, color='blue')
+            ax.text(min(Px), max(Py), f"theta2 = {int(theta2[cont] * 180 / pi)}°")
+            camera.snap()
+        animation = camera.animate()
+        animation.save('..\\gifs\\ex_prop_2_23.gif', fps=20)
 
     df = pd.DataFrame.from_dict({"theta2 (deg)": (theta2 * 180 / pi).round(1),
                                  "theta3 (deg)": (theta3 * 180 / pi).round(1),
@@ -151,6 +187,6 @@ def ex_prop_2_23(r1, r2, r3, r4, coord1, coord2, coord_type='rectangular', unit=
 
 
 if __name__ == '__main__':
-    print(ex_res_2_6(plot=True))
-    print(ex_prop_2_23(r1=260, r2=130, r3=250, r4=300, coord1=150, coord2=200, coord_type='rectangular'))
+    print(ex_res_2_6(plot=True, animation=True))
+    print(ex_prop_2_23(r1=260, r2=130, r3=250, r4=300, coord1=150, coord2=200, coord_type='rectangular', animation=True))
 
