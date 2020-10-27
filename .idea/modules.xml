@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/IC_UFABC.iml" filepath="$PROJECT_DIR$/.idea/IC_UFABC.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../UFABC-IC2020/.idea/UFABC-IC2020.iml" filepath="$PROJECT_DIR$/../UFABC-IC2020/.idea/UFABC-IC2020.iml" />
     </modules>
   </component>
 </project>
